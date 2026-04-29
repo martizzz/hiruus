@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portfolio Hirune</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f5f0;
+        color: #1f2528;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        width: 100%;
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+      }
+
+      section:nth-child(even) {
+        background: #ffffff;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-size: clamp(2.75rem, 8vw, 7rem);
+        font-weight: 400;
+        line-height: 1;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section id="home" aria-labelledby="home-title">
+        <h1 id="home-title">Home</h1>
+      </section>
+
+      <section id="about-me" aria-labelledby="about-me-title">
+        <h2 id="about-me-title">About Me</h2>
+      </section>
+
+      <section id="proyectos" aria-labelledby="proyectos-title">
+        <h2 id="proyectos-title">Proyectos</h2>
+      </section>
+
+      <section id="sketchbook" aria-labelledby="sketchbook-title">
+        <h2 id="sketchbook-title">Sketchbook</h2>
+      </section>
+
+      <section id="galeria" aria-labelledby="galeria-title">
+        <h2 id="galeria-title">Galeria</h2>
+      </section>
+
+      <section id="contacto" aria-labelledby="contacto-title">
+        <h2 id="contacto-title">Contacto</h2>
+      </section>
+    </main>
+  </body>
+</html>
