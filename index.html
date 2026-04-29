@@ -40,6 +40,77 @@
         background: #ffffff;
       }
 
+      #home {
+        align-items: stretch;
+        justify-content: stretch;
+        padding: 0;
+      }
+
+      .home-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        min-height: 100vh;
+        width: 100%;
+      }
+
+      .home-cell {
+        display: flex;
+        min-width: 0;
+        min-height: 0;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sketchbook-tile {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .sketchbook-tile img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: opacity 180ms ease;
+      }
+
+      .sketchbook-hover {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+      }
+
+      .sketchbook-tile:hover .sketchbook-default {
+        opacity: 0;
+      }
+
+      .sketchbook-tile:hover .sketchbook-hover {
+        opacity: 1;
+      }
+
+      .sketchbook-tile:focus-visible {
+        outline: 2px solid #1f2528;
+        outline-offset: -8px;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       h1,
       h2 {
         margin: 0;
@@ -53,7 +124,28 @@
   <body>
     <main>
       <section id="home" aria-labelledby="home-title">
-        <h1 id="home-title">Home</h1>
+        <h1 id="home-title" class="visually-hidden">Home</h1>
+        <div class="home-grid">
+          <div class="home-cell">
+            <a class="sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
+              <img
+                class="sketchbook-default"
+                src="assets/sketchbook_default.png"
+                alt=""
+              >
+              <img
+                class="sketchbook-hover"
+                src="assets/sketchbook_hover.png"
+                alt=""
+              >
+            </a>
+          </div>
+          <div class="home-cell"></div>
+          <div class="home-cell"></div>
+          <div class="home-cell"></div>
+          <div class="home-cell"></div>
+          <div class="home-cell"></div>
+        </div>
       </section>
 
       <section id="about-me" aria-labelledby="about-me-title">
