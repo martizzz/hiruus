@@ -102,6 +102,9 @@
 
       .home-grid {
         display: grid;
+        grid-template-areas:
+          "sketchbook proyectos galeria"
+          "about empty-a empty-b";
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: repeat(2, minmax(0, 1fr));
         min-height: 100vh;
@@ -116,28 +119,81 @@
         justify-content: center;
       }
 
-      .sketchbook-tile {
+      .home-cell--sketchbook {
+        grid-area: sketchbook;
+      }
+
+      .home-cell--proyectos {
+        grid-area: proyectos;
+      }
+
+      .home-cell--galeria {
+        grid-area: galeria;
+      }
+
+      .home-cell--about {
+        grid-area: about;
+      }
+
+      .home-cell--empty-a {
+        grid-area: empty-a;
+      }
+
+      .home-cell--empty-b {
+        grid-area: empty-b;
+      }
+
+      .home-tile {
         position: relative;
         display: flex;
         width: 100%;
         height: 100%;
         align-items: center;
         justify-content: center;
+        color: inherit;
         cursor: pointer;
+        text-decoration: none;
+      }
+
+      .home-placeholder {
+        width: min(78%, 260px);
+        min-height: 124px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(31, 37, 40, 0.22);
+        border-radius: 8px;
+        color: rgba(31, 37, 40, 0.72);
+        font-size: clamp(1.35rem, 2.4vw, 2.6rem);
+        line-height: 1;
+        text-align: center;
+        transition:
+          border-color 180ms ease,
+          color 180ms ease;
+      }
+
+      .home-tile:hover .home-placeholder,
+      .home-tile:focus-visible .home-placeholder {
+        border-color: #1f2528;
+        color: #1f2528;
       }
 
       .sketchbook-tile img {
         display: block;
-        width: 100%;
-        height: 100%;
+        width: min(86%, 360px);
+        max-height: min(42vh, 360px);
         object-fit: contain;
         transition: opacity 180ms ease;
       }
 
       .sketchbook-hover {
         position: absolute;
-        inset: 0;
+        top: 50%;
+        left: 50%;
+        width: min(86%, 360px);
+        max-height: min(42vh, 360px);
         opacity: 0;
+        transform: translate(-50%, -50%);
       }
 
       .sketchbook-tile:hover .sketchbook-default {
@@ -151,6 +207,57 @@
       .sketchbook-tile:focus-visible {
         outline: 2px solid #1f2528;
         outline-offset: -8px;
+      }
+
+      .scroll-cue {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 9;
+        display: flex;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(31, 37, 40, 0.2);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 12px 32px rgba(31, 37, 40, 0.12);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+        transition:
+          opacity 220ms ease,
+          transform 220ms ease,
+          visibility 220ms ease;
+        visibility: hidden;
+      }
+
+      .scroll-cue.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .scroll-cue::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border-right: 2px solid #1f2528;
+        border-bottom: 2px solid #1f2528;
+        transform: translateY(-3px) rotate(45deg);
+        animation: scroll-cue-bounce 1100ms ease-in-out infinite;
+      }
+
+      @keyframes scroll-cue-bounce {
+        0%,
+        100% {
+          transform: translateY(-5px) rotate(45deg);
+        }
+
+        50% {
+          transform: translateY(3px) rotate(45deg);
+        }
       }
 
       .visually-hidden {
@@ -173,6 +280,45 @@
         line-height: 1;
         text-align: center;
       }
+
+      @media (max-width: 720px) {
+        .site-nav {
+          top: 12px;
+          width: min(calc(100% - 24px), 420px);
+        }
+
+        .home-grid {
+          grid-template-areas:
+            "proyectos"
+            "sketchbook"
+            "galeria"
+            "about";
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(4, minmax(25vh, 1fr));
+        }
+
+        .home-cell--empty-a,
+        .home-cell--empty-b {
+          display: none;
+        }
+
+        .home-placeholder {
+          width: min(82%, 300px);
+          min-height: 78px;
+          font-size: clamp(1.3rem, 8vw, 2.45rem);
+        }
+
+        .sketchbook-tile img,
+        .sketchbook-hover {
+          width: min(78vw, 260px);
+          max-height: 20vh;
+        }
+
+        .scroll-cue {
+          bottom: 18px;
+          left: 18px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -189,8 +335,8 @@
       <section id="home" aria-labelledby="home-title">
         <h1 id="home-title" class="visually-hidden">Home</h1>
         <div class="home-grid">
-          <div class="home-cell">
-            <a class="sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
+          <div class="home-cell home-cell--sketchbook">
+            <a class="home-tile sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
               <img
                 class="sketchbook-default"
                 src="assets/sketchbook_default.png"
@@ -203,12 +349,25 @@
               >
             </a>
           </div>
-          <div class="home-cell"></div>
-          <div class="home-cell"></div>
-          <div class="home-cell"></div>
-          <div class="home-cell"></div>
-          <div class="home-cell"></div>
+          <div class="home-cell home-cell--proyectos">
+            <a class="home-tile" href="#proyectos">
+              <span class="home-placeholder">Proyectos</span>
+            </a>
+          </div>
+          <div class="home-cell home-cell--galeria">
+            <a class="home-tile" href="#galeria">
+              <span class="home-placeholder">Galeria</span>
+            </a>
+          </div>
+          <div class="home-cell home-cell--about">
+            <a class="home-tile" href="#about-me">
+              <span class="home-placeholder">About Me</span>
+            </a>
+          </div>
+          <div class="home-cell home-cell--empty-a"></div>
+          <div class="home-cell home-cell--empty-b"></div>
         </div>
+        <div class="scroll-cue" aria-hidden="true"></div>
       </section>
 
       <section id="about-me" aria-labelledby="about-me-title">
@@ -233,15 +392,45 @@
     </main>
     <script>
       const siteNav = document.querySelector(".site-nav");
+      const scrollCue = document.querySelector(".scroll-cue");
       const homeSection = document.querySelector("#home");
+      let scrollCueTimer;
+      let scrollCueTimerStarted = false;
+
+      function isHomeRoute() {
+        return window.location.hash === "" || window.location.hash === "#home";
+      }
+
+      function isInHomeSection() {
+        const homeBounds = homeSection.getBoundingClientRect();
+        return isHomeRoute() && homeBounds.top <= 1 && homeBounds.bottom > 1;
+      }
+
+      function updateScrollCueVisibility() {
+        if (!isInHomeSection()) {
+          window.clearTimeout(scrollCueTimer);
+          scrollCueTimerStarted = false;
+          scrollCue.classList.remove("is-visible");
+          return;
+        }
+
+        if (!scrollCueTimerStarted) {
+          scrollCueTimerStarted = true;
+          scrollCueTimer = window.setTimeout(() => {
+            if (isInHomeSection()) {
+              scrollCue.classList.add("is-visible");
+            }
+          }, 4000);
+        }
+      }
 
       function updateNavVisibility() {
-        const isHomeHash = window.location.hash === "" || window.location.hash === "#home";
         const hasLeftHome = homeSection.getBoundingClientRect().bottom <= 1;
-        const showNav = hasLeftHome || !isHomeHash;
+        const showNav = hasLeftHome || !isHomeRoute();
 
         siteNav.classList.toggle("is-visible", showNav);
         siteNav.setAttribute("aria-hidden", String(!showNav));
+        updateScrollCueVisibility();
       }
 
       updateNavVisibility();
