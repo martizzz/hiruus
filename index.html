@@ -236,7 +236,10 @@
       const homeSection = document.querySelector("#home");
 
       function updateNavVisibility() {
-        const showNav = homeSection.getBoundingClientRect().bottom <= 1;
+        const isHomeHash = window.location.hash === "" || window.location.hash === "#home";
+        const hasLeftHome = homeSection.getBoundingClientRect().bottom <= 1;
+        const showNav = hasLeftHome || !isHomeHash;
+
         siteNav.classList.toggle("is-visible", showNav);
         siteNav.setAttribute("aria-hidden", String(!showNav));
       }
@@ -244,6 +247,8 @@
       updateNavVisibility();
       window.addEventListener("scroll", updateNavVisibility, { passive: true });
       window.addEventListener("resize", updateNavVisibility);
+      window.addEventListener("hashchange", updateNavVisibility);
+      window.addEventListener("load", updateNavVisibility);
     </script>
   </body>
 </html>
