@@ -10,6 +10,8 @@
         font-family: Arial, Helvetica, sans-serif;
         background: #f7f5f0;
         color: #1f2528;
+        --sketchbook-width: min(100%, 680px);
+        --sketchbook-max-height: min(49vh, 520px);
       }
 
       * {
@@ -180,8 +182,8 @@
 
       .sketchbook-tile img {
         display: block;
-        width: min(86%, 360px);
-        max-height: min(42vh, 360px);
+        width: var(--sketchbook-width);
+        max-height: var(--sketchbook-max-height);
         object-fit: contain;
         transition: opacity 180ms ease;
       }
@@ -190,8 +192,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: min(86%, 360px);
-        max-height: min(42vh, 360px);
+        width: var(--sketchbook-width);
+        max-height: var(--sketchbook-max-height);
         opacity: 0;
         transform: translate(-50%, -50%);
       }
@@ -282,6 +284,11 @@
       }
 
       @media (max-width: 720px) {
+        :root {
+          --sketchbook-width: min(96vw, 480px);
+          --sketchbook-max-height: 34vh;
+        }
+
         .site-nav {
           top: 12px;
           width: min(calc(100% - 24px), 420px);
@@ -294,7 +301,7 @@
             "galeria"
             "about";
           grid-template-columns: 1fr;
-          grid-template-rows: repeat(4, minmax(25vh, 1fr));
+          grid-template-rows: 21vh 37vh 21vh 21vh;
         }
 
         .home-cell--empty-a,
@@ -306,12 +313,6 @@
           width: min(82%, 300px);
           min-height: 78px;
           font-size: clamp(1.3rem, 8vw, 2.45rem);
-        }
-
-        .sketchbook-tile img,
-        .sketchbook-hover {
-          width: min(78vw, 260px);
-          max-height: 20vh;
         }
 
         .scroll-cue {
