@@ -12,6 +12,7 @@
         color: #1f2528;
         --sketchbook-width: min(100%, 680px);
         --sketchbook-max-height: min(49vh, 520px);
+        --hiru-width: 100vw;
       }
 
       * {
@@ -106,7 +107,7 @@
         display: grid;
         grid-template-areas:
           "sketchbook proyectos galeria"
-          "about empty-a empty-b";
+          "empty-a about empty-b";
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: repeat(2, minmax(0, 1fr));
         min-height: 100vh;
@@ -135,6 +136,7 @@
 
       .home-cell--about {
         grid-area: about;
+        align-items: flex-end;
       }
 
       .home-cell--empty-a {
@@ -180,6 +182,18 @@
         color: #1f2528;
       }
 
+      .hiru-home-tile {
+        align-items: flex-end;
+      }
+
+      .hiru-home-image,
+      .hiru-about-image {
+        display: block;
+        width: var(--hiru-width);
+        max-width: none;
+        height: auto;
+      }
+
       .sketchbook-tile img {
         display: block;
         width: var(--sketchbook-width);
@@ -216,7 +230,7 @@
         bottom: 24px;
         left: 24px;
         z-index: 9;
-        display: flex;
+        display: none;
         width: 44px;
         height: 44px;
         align-items: center;
@@ -236,6 +250,7 @@
       }
 
       .scroll-cue.is-visible {
+        display: flex;
         opacity: 1;
         transform: translateY(0);
         visibility: visible;
@@ -315,10 +330,26 @@
           font-size: clamp(1.3rem, 8vw, 2.45rem);
         }
 
+        .home-cell--about {
+          min-height: 21vh;
+        }
+
         .scroll-cue {
           bottom: 18px;
           left: 18px;
         }
+      }
+
+      #about-me {
+        align-items: flex-start;
+        background: #f7f5f0;
+        padding: 0;
+      }
+
+      .about-me-figure {
+        display: flex;
+        width: 100%;
+        justify-content: center;
       }
     </style>
   </head>
@@ -361,8 +392,12 @@
             </a>
           </div>
           <div class="home-cell home-cell--about">
-            <a class="home-tile" href="#about-me">
-              <span class="home-placeholder">About Me</span>
+            <a class="home-tile hiru-home-tile" href="#about-me" aria-label="Ir a About Me">
+              <img
+                class="hiru-home-image"
+                src="assets/hiru_default.png"
+                alt=""
+              >
             </a>
           </div>
           <div class="home-cell home-cell--empty-a"></div>
@@ -372,7 +407,14 @@
       </section>
 
       <section id="about-me" aria-labelledby="about-me-title">
-        <h2 id="about-me-title">About Me</h2>
+        <h2 id="about-me-title" class="visually-hidden">About Me</h2>
+        <div class="about-me-figure" aria-hidden="true">
+          <img
+            class="hiru-about-image"
+            src="assets/hiru_aboutMe.png"
+            alt=""
+          >
+        </div>
       </section>
 
       <section id="proyectos" aria-labelledby="proyectos-title">
@@ -404,7 +446,7 @@
 
       function isInHomeSection() {
         const homeBounds = homeSection.getBoundingClientRect();
-        return isHomeRoute() && homeBounds.top <= 1 && homeBounds.bottom > 1;
+        return isHomeRoute() && Math.abs(homeBounds.top) < 4;
       }
 
       function updateScrollCueVisibility() {
