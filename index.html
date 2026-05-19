@@ -397,6 +397,50 @@
         width: 100%;
         justify-content: center;
       }
+
+      #galeria {
+        align-items: stretch;
+        flex-direction: column;
+        justify-content: center;
+        gap: 32px;
+        overflow: hidden;
+      }
+
+      .gallery-copy {
+        width: min(100%, 980px);
+        margin: 0 auto;
+        font-size: clamp(1rem, 1.5vw, 1.35rem);
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .gallery-scroll {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        padding: 0 0 18px;
+        scrollbar-color: #1f2528 rgba(31, 37, 40, 0.12);
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-auto-columns: clamp(160px, calc((100% - 54px) / 4), 280px);
+        grid-auto-flow: column;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        min-height: min(58vh, 560px);
+        width: max-content;
+      }
+
+      .gallery-grid img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        border-radius: 8px;
+        object-fit: cover;
+      }
     </style>
   </head>
   <body>
@@ -485,7 +529,45 @@
       </section>
 
       <section id="galeria" aria-labelledby="galeria-title">
-        <h2 id="galeria-title">Galeria</h2>
+        <h2 id="galeria-title" class="visually-hidden">Galeria</h2>
+        <p class="gallery-copy">
+          En esta galería encontraréis una selección de dibujos e ilustraciones realizadas a lo largo de los años. Son piezas sueltas, fuera de proyectos concretos, que forman parte de mi proceso creativo y donde se muestra mi estilo e identidad artística.
+        </p>
+        <div class="gallery-scroll" aria-label="Galeria de ilustraciones">
+          <div class="gallery-grid">
+            <img src="assets/carousel/IMG_1726.PNG" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_1731.PNG" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_1840.PNG" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2201.PNG" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2545.PNG" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2546.PNG" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2547.PNG" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2551.PNG" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2554.PNG" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2555.PNG" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2557.PNG" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2558.PNG" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2560.PNG" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2562.PNG" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2563.PNG" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2564.PNG" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2565.PNG" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2566.PNG" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2567.PNG" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2568.PNG" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2569.PNG" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2570.PNG" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2571.PNG" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2572.PNG" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2573.PNG" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2574.PNG" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2575.PNG" alt="Ilustracion de galeria 27" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2576.PNG" alt="Ilustracion de galeria 28" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2577.PNG" alt="Ilustracion de galeria 29" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2579.PNG" alt="Ilustracion de galeria 30" loading="lazy" decoding="async">
+            <img src="assets/carousel/IMG_2580.PNG" alt="Ilustracion de galeria 31" loading="lazy" decoding="async">
+          </div>
+        </div>
       </section>
 
       <section id="contacto" aria-labelledby="contacto-title">
