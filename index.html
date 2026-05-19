@@ -603,22 +603,24 @@
       }
 
       .contact-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 0.85fr) minmax(280px, 1.15fr);
-        gap: 42px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
         width: min(100%, 1020px);
         margin: 0 auto;
-        align-items: start;
+        align-items: center;
+        text-align: center;
       }
 
       .contact-intro {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        align-items: center;
       }
 
       .contact-intro h2 {
-        text-align: left;
+        text-align: center;
       }
 
       .contact-intro p {
@@ -652,86 +654,9 @@
         outline: 0;
       }
 
-      .contact-form {
-        display: grid;
-        gap: 14px;
-      }
-
-      .contact-form label {
-        display: grid;
-        gap: 7px;
-        font-size: 0.95rem;
-      }
-
-      .contact-form input,
-      .contact-form textarea {
-        width: 100%;
-        border: 1px solid rgba(31, 37, 40, 0.2);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.78);
-        color: inherit;
-        font: inherit;
-        padding: 12px 14px;
-      }
-
-      .contact-form textarea {
-        min-height: 150px;
-        resize: vertical;
-      }
-
-      .contact-form input:focus,
-      .contact-form textarea:focus {
-        border-color: #1f2528;
-        outline: 2px solid rgba(31, 37, 40, 0.14);
-      }
-
-      .contact-extra {
-        display: none;
-      }
-
-      .contact-check {
-        display: grid;
-        grid-template-columns: 1fr minmax(86px, 120px);
-        gap: 12px;
-        align-items: end;
-      }
-
-      .contact-form button {
-        min-height: 46px;
-        border: 0;
-        border-radius: 8px;
-        background: #1f2528;
-        color: #ffffff;
-        cursor: pointer;
-        font: inherit;
-        padding: 0 18px;
-      }
-
-      .contact-form button:hover,
-      .contact-form button:focus-visible {
-        background: #3b4448;
-        outline: 0;
-      }
-
-      .form-status {
-        min-height: 1.4em;
-        margin: 0;
-        color: rgba(31, 37, 40, 0.78);
-        font-size: 0.95rem;
-      }
-
       @media (max-width: 780px) {
         #contacto {
           padding: 84px 20px 48px;
-        }
-
-        .contact-layout {
-          grid-template-columns: 1fr;
-          gap: 28px;
-        }
-
-        .contact-check {
-          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -876,7 +801,7 @@
           <div class="contact-intro">
             <h2 id="contacto-title">Contacto</h2>
             <p>
-              Si queréis hablar sobre una colaboración, encargo o proyecto, podéis escribirme desde este formulario o contactarme por redes sociales.
+              Para colaboraciones, encargos o proyectos, podéis contactarme por redes sociales.
             </p>
             <div class="social-links" aria-label="Redes sociales">
               <a class="social-link" href="https://www.instagram.com/hiruuuus/" target="_blank" rel="noreferrer">
@@ -884,33 +809,6 @@
               </a>
             </div>
           </div>
-
-          <form class="contact-form" novalidate>
-            <label>
-              Nombre
-              <input type="text" name="name" autocomplete="name" required>
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" autocomplete="email" required>
-            </label>
-            <label>
-              Mensaje
-              <textarea name="message" required></textarea>
-            </label>
-            <label class="contact-extra" aria-hidden="true">
-              Web
-              <input type="text" name="website" tabindex="-1" autocomplete="off">
-            </label>
-            <div class="contact-check">
-              <label>
-                Verificación anti-bots: ¿cuánto es 7 + 3?
-                <input type="number" name="verification" inputmode="numeric" required>
-              </label>
-              <button type="submit">Enviar</button>
-            </div>
-            <p class="form-status" role="status" aria-live="polite"></p>
-          </form>
         </div>
       </section>
     </main>
@@ -928,8 +826,6 @@
       const imageLightbox = document.querySelector(".image-lightbox");
       const lightboxImage = imageLightbox.querySelector("img");
       const lightboxClose = imageLightbox.querySelector(".lightbox-close");
-      const contactForm = document.querySelector(".contact-form");
-      const formStatus = document.querySelector(".form-status");
       let scrollCueTimer;
       let scrollCueTimerStarted = false;
 
@@ -1017,29 +913,6 @@
         if (event.key === "Escape" && imageLightbox.classList.contains("is-visible")) {
           closeLightbox();
         }
-      });
-
-      contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(contactForm);
-
-        if (formData.get("website")) {
-          formStatus.textContent = "";
-          return;
-        }
-
-        if (Number(formData.get("verification")) !== 10) {
-          formStatus.textContent = "Revisa la verificación antes de enviar.";
-          return;
-        }
-
-        if (!contactForm.checkValidity()) {
-          formStatus.textContent = "Completa todos los campos obligatorios.";
-          return;
-        }
-
-        formStatus.textContent = "Formulario validado. Para activar el envío real hace falta conectar un servicio de formulario o email.";
-        contactForm.reset();
       });
     </script>
   </body>
