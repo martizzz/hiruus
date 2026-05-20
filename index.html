@@ -421,6 +421,138 @@
         justify-content: center;
       }
 
+      #proyectos {
+        align-items: stretch;
+        justify-content: center;
+        padding-block: 72px;
+      }
+
+      .project-layout {
+        display: grid;
+        width: min(100%, 1180px);
+        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
+        gap: clamp(28px, 5vw, 72px);
+        align-items: center;
+      }
+
+      .project-copy {
+        display: grid;
+        gap: 20px;
+      }
+
+      .project-kicker {
+        margin: 0;
+        color: var(--ink);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      #proyectos h2 {
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 7rem);
+        line-height: 0.88;
+      }
+
+      .project-card {
+        display: grid;
+        gap: 18px;
+        padding: clamp(20px, 3vw, 34px);
+        border: 1px solid rgba(21, 18, 15, 0.18);
+        background: rgba(255, 250, 242, 0.82);
+        box-shadow: 10px 10px 0 var(--aqua);
+      }
+
+      .project-card h3 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 4.5vw, 4.8rem);
+        font-weight: 400;
+        line-height: 0.95;
+      }
+
+      .project-card p {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1rem, 1.18vw, 1.18rem);
+        line-height: 1.55;
+      }
+
+      .project-viewer {
+        position: relative;
+        display: grid;
+        align-items: center;
+      }
+
+      .project-frame {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+      }
+
+      .project-image {
+        display: block;
+        width: 100%;
+        height: min(64vh, 660px);
+        border: 1px solid rgba(21, 18, 15, 0.16);
+        background: var(--white);
+        box-shadow: 14px 14px 0 rgba(21, 18, 15, 0.14);
+        cursor: zoom-in;
+        object-fit: contain;
+      }
+
+      .project-image:focus-visible {
+        outline: 3px solid var(--ink);
+        outline-offset: 6px;
+      }
+
+      .project-frame figcaption {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--ink);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .project-button {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        display: inline-flex;
+        width: 46px;
+        height: 46px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        background: rgba(255, 250, 242, 0.92);
+        box-shadow: 5px 5px 0 var(--aqua);
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        font-size: 1.8rem;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
+
+      .project-button:hover,
+      .project-button:focus-visible {
+        background: var(--ink);
+        color: var(--paper);
+        outline: 0;
+      }
+
+      .project-button--prev {
+        left: -22px;
+      }
+
+      .project-button--next {
+        right: -22px;
+      }
+
       #galeria {
         align-items: stretch;
         flex-direction: column;
@@ -545,6 +677,37 @@
       }
 
       @media (max-width: 720px) {
+        #proyectos {
+          padding-block: 64px;
+        }
+
+        .project-layout {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .project-card {
+          padding: 20px;
+        }
+
+        .project-image {
+          height: min(58vh, 520px);
+        }
+
+        .project-button {
+          width: 40px;
+          height: 40px;
+          font-size: 1.6rem;
+        }
+
+        .project-button--prev {
+          left: 8px;
+        }
+
+        .project-button--next {
+          right: 8px;
+        }
+
         #galeria {
           gap: 24px;
           padding: 72px 18px 48px;
@@ -898,7 +1061,32 @@
       </section>
 
       <section id="proyectos" aria-labelledby="proyectos-title">
-        <h2 id="proyectos-title">Proyectos</h2>
+        <div class="project-layout">
+          <div class="project-copy">
+            <p class="project-kicker">Projecte 01</p>
+            <h2 id="proyectos-title">Proyectos</h2>
+            <article class="project-card">
+              <h3>Sense títol</h3>
+              <p>
+                Aquest projecte, desenvolupat entre 2024 i 2025, neix d’un procés de creació intuïtiu en què em vaig deixar portar pel meu propi univers visual, sense expectatives ni una intenció inicial completament definida. A través d’aquesta llibertat creativa, les obres van acabar convertint-se, gairebé sense voler, en una representació profunda de mi mateixa i de la meva infància. El projecte aborda temes com la vulnerabilitat, la feminitat, la infantesa i els traumes, emergint de manera natural dins del procés creatiu. Aquesta sèrie va marcar un abans i un després en la meva pràctica artística, en fer-me entendre la creació com un espai on l’inconscient, la memòria i la identitat poden manifestar-se de forma inesperada.
+              </p>
+            </article>
+          </div>
+          <div class="project-viewer" aria-label="Imatges del projecte Sense títol">
+            <button class="project-button project-button--prev" type="button" aria-label="Veure imatge anterior" data-project-direction="-1">
+              &lsaquo;
+            </button>
+            <figure class="project-frame">
+              <img class="project-image" src="assets/project_1/0.jpg" alt="Sense títol, imatge 1" loading="lazy" decoding="async">
+              <figcaption>
+                <span class="project-counter">1 / 8</span>
+              </figcaption>
+            </figure>
+            <button class="project-button project-button--next" type="button" aria-label="Veure imatge seguent" data-project-direction="1">
+              &rsaquo;
+            </button>
+          </div>
+        </div>
       </section>
 
       <section id="sketchbook" aria-labelledby="sketchbook-title">
@@ -998,6 +1186,9 @@
       const galleryScroll = document.querySelector(".gallery-scroll");
       const galleryButtons = document.querySelectorAll("[data-gallery-direction]");
       const galleryImages = document.querySelectorAll(".gallery-grid img");
+      const projectImage = document.querySelector(".project-image");
+      const projectCounter = document.querySelector(".project-counter");
+      const projectButtons = document.querySelectorAll("[data-project-direction]");
       const imageLightbox = document.querySelector(".image-lightbox");
       const lightboxImage = imageLightbox.querySelector("img");
       const lightboxClose = imageLightbox.querySelector(".lightbox-close");
@@ -1015,6 +1206,17 @@
       let currentDrawColor = "#15120f";
       const pixelBrushSize = 18;
       const pixelGridSize = 9;
+      const projectImages = [
+        "assets/project_1/0.jpg",
+        "assets/project_1/1.png",
+        "assets/project_1/2.png",
+        "assets/project_1/3.JPG",
+        "assets/project_1/4.JPG",
+        "assets/project_1/5.JPG",
+        "assets/project_1/6.JPG",
+        "assets/project_1/7.JPG",
+      ];
+      let projectImageIndex = 0;
 
       function isHomeRoute() {
         return window.location.hash === "" || window.location.hash === "#home";
@@ -1068,6 +1270,21 @@
         });
       });
 
+      function updateProjectImage(index) {
+        projectImageIndex = (index + projectImages.length) % projectImages.length;
+        projectImage.src = projectImages[projectImageIndex];
+        projectImage.alt = `Sense títol, imatge ${projectImageIndex + 1}`;
+        projectCounter.textContent = `${projectImageIndex + 1} / ${projectImages.length}`;
+      }
+
+      projectButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          updateProjectImage(projectImageIndex + Number(button.dataset.projectDirection));
+        });
+      });
+
+      projectImage.tabIndex = 0;
+
       function closeLightbox() {
         imageLightbox.classList.remove("is-visible");
         lightboxImage.src = "";
@@ -1088,6 +1305,20 @@
             image.click();
           }
         });
+      });
+
+      projectImage.addEventListener("click", () => {
+        lightboxImage.src = projectImage.src;
+        lightboxImage.alt = projectImage.alt;
+        imageLightbox.classList.add("is-visible");
+        lightboxClose.focus();
+      });
+
+      projectImage.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          projectImage.click();
+        }
       });
 
       lightboxClose.addEventListener("click", closeLightbox);
