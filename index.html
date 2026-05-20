@@ -587,7 +587,7 @@
 
       body.is-drawing,
       body.is-drawing * {
-        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='none'/%3E%3Crect x='15' y='1' width='4' height='4' fill='%2315120f'/%3E%3Crect x='12' y='4' width='4' height='4' fill='%2315120f'/%3E%3Crect x='9' y='7' width='4' height='4' fill='%2315120f'/%3E%3Crect x='6' y='10' width='4' height='4' fill='%2315120f'/%3E%3Crect x='3' y='13' width='4' height='4' fill='%2315120f'/%3E%3Crect x='18' y='1' width='3' height='3' fill='%23c8e9e5'/%3E%3Crect x='15' y='4' width='3' height='3' fill='%23c8e9e5'/%3E%3Crect x='12' y='7' width='3' height='3' fill='%23c8e9e5'/%3E%3Crect x='9' y='10' width='3' height='3' fill='%23c8e9e5'/%3E%3Crect x='2' y='17' width='4' height='4' fill='%2315120f'/%3E%3C/svg%3E") 3 20, crosshair;
+        cursor: url("assets/pencil_cursor.png") 8 50, crosshair;
       }
 
       .draw-tool {
@@ -629,15 +629,10 @@
 
       .draw-toggle::before {
         content: "";
-        width: 26px;
-        height: 26px;
+        width: 36px;
+        height: 36px;
         image-rendering: pixelated;
-        background:
-          linear-gradient(var(--ink), var(--ink)) 18px 0 / 6px 6px no-repeat,
-          linear-gradient(var(--aqua), var(--aqua)) 14px 4px / 6px 6px no-repeat,
-          linear-gradient(var(--ink), var(--ink)) 10px 8px / 6px 6px no-repeat,
-          linear-gradient(var(--aqua), var(--aqua)) 6px 12px / 6px 6px no-repeat,
-          linear-gradient(var(--ink), var(--ink)) 2px 16px / 7px 7px no-repeat;
+        background: url("assets/pencil.png") center / contain no-repeat;
       }
 
       .draw-toggle:hover,
