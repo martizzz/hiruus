@@ -29,10 +29,12 @@
 
       html {
         scroll-behavior: smooth;
+        overflow-x: hidden;
       }
 
       body {
         margin: 0;
+        overflow-x: hidden;
         background:
           radial-gradient(circle at 1px 1px, rgba(21, 18, 15, 0.12) 1px, transparent 1.7px) 0 0 / 11px 11px,
           var(--paper);
@@ -992,6 +994,7 @@
       const siteNav = document.querySelector(".site-nav");
       const scrollCue = document.querySelector(".scroll-cue");
       const homeSection = document.querySelector("#home");
+      const pageMain = document.querySelector("main");
       const galleryScroll = document.querySelector(".gallery-scroll");
       const galleryButtons = document.querySelectorAll("[data-gallery-direction]");
       const galleryImages = document.querySelectorAll(".gallery-grid img");
@@ -1101,14 +1104,9 @@
 
       function getDrawCanvasSize() {
         return {
-          width: Math.max(
-            document.documentElement.scrollWidth,
-            document.body.scrollWidth,
-            window.innerWidth
-          ),
+          width: document.documentElement.clientWidth,
           height: Math.max(
-            document.documentElement.scrollHeight,
-            document.body.scrollHeight,
+            pageMain.offsetHeight,
             window.innerHeight
           ),
         };
