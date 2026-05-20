@@ -614,6 +614,10 @@
         text-transform: uppercase;
       }
 
+      .draw-menu {
+        min-width: 188px;
+      }
+
       .draw-toggle {
         display: inline-flex;
         width: 54px;
@@ -665,10 +669,32 @@
         display: grid;
       }
 
+      .draw-colors {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+
       .draw-menu button {
         min-height: 34px;
         padding: 0 12px;
         white-space: nowrap;
+      }
+
+      .draw-menu .draw-color {
+        min-height: 30px;
+        padding: 0;
+        background: var(--swatch);
+        image-rendering: pixelated;
+      }
+
+      .draw-menu .draw-color:hover,
+      .draw-menu .draw-color:focus-visible,
+      .draw-menu .draw-color.is-selected {
+        outline: 3px solid var(--ink);
+        outline-offset: 2px;
+        background: var(--swatch);
+        color: inherit;
       }
 
       .image-lightbox {
@@ -953,6 +979,13 @@
     <div class="draw-tool">
       <button class="draw-toggle" type="button" aria-label="Activar lapiz"></button>
       <div class="draw-menu" aria-label="Herramientas de dibujo">
+        <div class="draw-colors" aria-label="Colores del lapiz">
+          <button class="draw-color is-selected" type="button" data-draw-color="#15120f" style="--swatch: #15120f" aria-label="Negro"></button>
+          <button class="draw-color" type="button" data-draw-color="#0d7c80" style="--swatch: #0d7c80" aria-label="Azul verdoso"></button>
+          <button class="draw-color" type="button" data-draw-color="#c74f3a" style="--swatch: #c74f3a" aria-label="Rojo"></button>
+          <button class="draw-color" type="button" data-draw-color="#f3c84b" style="--swatch: #f3c84b" aria-label="Amarillo"></button>
+          <button class="draw-color" type="button" data-draw-color="#fffaf2" style="--swatch: #fffaf2" aria-label="Papel"></button>
+        </div>
         <button class="draw-stop" type="button">Dejar el lapiz</button>
         <button class="draw-clear" type="button">Borrar</button>
       </div>
@@ -976,11 +1009,15 @@
       const drawToggle = document.querySelector(".draw-toggle");
       const drawStop = document.querySelector(".draw-stop");
       const drawClear = document.querySelector(".draw-clear");
+      const drawColorButtons = document.querySelectorAll("[data-draw-color]");
       let scrollCueTimer;
       let scrollCueTimerStarted = false;
       let isDrawingMode = false;
       let isDrawingStroke = false;
       let lastPoint = null;
+      let currentDrawColor = "#15120f";
+      const pixelBrushSize = 18;
+      const pixelGridSize = 9;
 
       function isHomeRoute() {
         return window.location.hash === "" || window.location.hash === "#home";
@@ -1080,10 +1117,7 @@
         drawCanvas.style.width = `${window.innerWidth}px`;
         drawCanvas.style.height = `${window.innerHeight}px`;
         drawContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-        drawContext.lineCap = "round";
-        drawContext.lineJoin = "round";
-        drawContext.lineWidth = 4;
-        drawContext.strokeStyle = "#15120f";
+        drawContext.imageSmoothingEnabled = false;
 
         if (previousCanvas.width && previousCanvas.height) {
           drawContext.drawImage(
@@ -1119,15 +1153,40 @@
         };
       }
 
+      function getPixelPoint(point) {
+        return {
+          x: Math.round(point.x / pixelGridSize) * pixelGridSize,
+          y: Math.round(point.y / pixelGridSize) * pixelGridSize,
+        };
+      }
+
+      function drawPixel(point) {
+        const pixelPoint = getPixelPoint(point);
+        drawContext.fillStyle = currentDrawColor;
+        drawContext.fillRect(
+          pixelPoint.x - pixelBrushSize / 2,
+          pixelPoint.y - pixelBrushSize / 2,
+          pixelBrushSize,
+          pixelBrushSize
+        );
+      }
+
       function drawLineTo(point) {
         if (!lastPoint) {
           lastPoint = point;
         }
 
-        drawContext.beginPath();
-        drawContext.moveTo(lastPoint.x, lastPoint.y);
-        drawContext.lineTo(point.x, point.y);
-        drawContext.stroke();
+        const distance = Math.hypot(point.x - lastPoint.x, point.y - lastPoint.y);
+        const steps = Math.max(1, Math.ceil(distance / (pixelGridSize / 2)));
+
+        for (let index = 0; index <= steps; index += 1) {
+          const progress = index / steps;
+          drawPixel({
+            x: lastPoint.x + (point.x - lastPoint.x) * progress,
+            y: lastPoint.y + (point.y - lastPoint.y) * progress,
+          });
+        }
+
         lastPoint = point;
       }
 
@@ -1141,6 +1200,16 @@
 
       drawClear.addEventListener("click", () => {
         drawContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      });
+
+      drawColorButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentDrawColor = button.dataset.drawColor;
+          drawColorButtons.forEach((colorButton) => {
+            colorButton.classList.toggle("is-selected", colorButton === button);
+          });
+          setDrawingMode(true);
+        });
       });
 
       drawCanvas.addEventListener("pointerdown", (event) => {
