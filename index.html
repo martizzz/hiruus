@@ -571,17 +571,16 @@
       }
 
       .draw-canvas {
-        position: fixed;
-        inset: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
         z-index: 24;
-        display: none;
-        width: 100vw;
-        height: 100vh;
+        display: block;
+        width: 100%;
         pointer-events: none;
       }
 
       body.is-drawing .draw-canvas {
-        display: block;
         pointer-events: auto;
       }
 
@@ -1100,17 +1099,35 @@
         }
       });
 
+      function getDrawCanvasSize() {
+        return {
+          width: Math.max(
+            document.documentElement.scrollWidth,
+            document.body.scrollWidth,
+            window.innerWidth
+          ),
+          height: Math.max(
+            document.documentElement.scrollHeight,
+            document.body.scrollHeight,
+            window.innerHeight
+          ),
+        };
+      }
+
       function resizeDrawCanvas() {
         const previousCanvas = document.createElement("canvas");
         previousCanvas.width = drawCanvas.width;
         previousCanvas.height = drawCanvas.height;
         previousCanvas.getContext("2d").drawImage(drawCanvas, 0, 0);
+        const previousWidth = drawCanvas.offsetWidth;
+        const previousHeight = drawCanvas.offsetHeight;
 
         const pixelRatio = window.devicePixelRatio || 1;
-        drawCanvas.width = Math.floor(window.innerWidth * pixelRatio);
-        drawCanvas.height = Math.floor(window.innerHeight * pixelRatio);
-        drawCanvas.style.width = `${window.innerWidth}px`;
-        drawCanvas.style.height = `${window.innerHeight}px`;
+        const canvasSize = getDrawCanvasSize();
+        drawCanvas.width = Math.floor(canvasSize.width * pixelRatio);
+        drawCanvas.height = Math.floor(canvasSize.height * pixelRatio);
+        drawCanvas.style.width = `${canvasSize.width}px`;
+        drawCanvas.style.height = `${canvasSize.height}px`;
         drawContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
         drawContext.imageSmoothingEnabled = false;
 
@@ -1123,8 +1140,8 @@
             previousCanvas.height,
             0,
             0,
-            window.innerWidth,
-            window.innerHeight
+            previousWidth,
+            previousHeight
           );
         }
       }
@@ -1142,9 +1159,10 @@
       }
 
       function getDrawPoint(event) {
+        const canvasBounds = drawCanvas.getBoundingClientRect();
         return {
-          x: event.clientX,
-          y: event.clientY,
+          x: event.clientX - canvasBounds.left,
+          y: event.clientY - canvasBounds.top,
         };
       }
 
@@ -1194,7 +1212,8 @@
       });
 
       drawClear.addEventListener("click", () => {
-        drawContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        const canvasSize = getDrawCanvasSize();
+        drawContext.clearRect(0, 0, canvasSize.width, canvasSize.height);
       });
 
       drawColorButtons.forEach((button) => {
@@ -1239,6 +1258,7 @@
       drawCanvas.addEventListener("pointerup", stopDrawingStroke);
       drawCanvas.addEventListener("pointercancel", stopDrawingStroke);
       window.addEventListener("resize", resizeDrawCanvas);
+      window.addEventListener("load", resizeDrawCanvas);
     </script>
   </body>
 </html>
