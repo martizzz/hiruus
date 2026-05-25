@@ -382,12 +382,10 @@
 
         .home-grid {
           grid-template-areas:
-            "proyectos"
-            "sketchbook"
-            "galeria"
-            "about";
-          grid-template-columns: 1fr;
-          grid-template-rows: repeat(4, 25vh);
+            "proyectos sketchbook"
+            "galeria about";
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: repeat(2, 50vh);
         }
 
         .home-cell--empty-a {
@@ -427,6 +425,50 @@
         gap: 72px;
         justify-content: center;
         padding: 72px clamp(18px, 3vw, 56px);
+      }
+
+      #sketchbook {
+        align-items: stretch;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+        padding: 72px clamp(18px, 4vw, 64px);
+      }
+
+      #sketchbook h2 {
+        font-size: clamp(3rem, 8vw, 7rem);
+      }
+
+      .sketchbook-videos {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(20px, 4vw, 56px);
+        width: 100%;
+        align-items: center;
+      }
+
+      .sketchbook-video-frame {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+      }
+
+      .sketchbook-video-frame video {
+        display: block;
+        width: 100%;
+        height: min(72vh, 760px);
+        border: 1px solid rgba(21, 18, 15, 0.16);
+        background: var(--ink);
+        box-shadow: 12px 12px 0 rgba(21, 18, 15, 0.14);
+        object-fit: contain;
+      }
+
+      .sketchbook-video-frame figcaption {
+        color: var(--ink);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
       .project-layout {
@@ -718,6 +760,19 @@
 
         .project-layout + .project-layout {
           padding-top: 56px;
+        }
+
+        #sketchbook {
+          padding: 64px 18px;
+        }
+
+        .sketchbook-videos {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .sketchbook-video-frame video {
+          height: min(72vh, 620px);
         }
 
         #galeria {
@@ -1135,56 +1190,56 @@
         <h2 id="proyectos-title" class="visually-hidden">Proyectos</h2>
         <div class="project-layout">
           <div class="project-copy">
-            <p class="project-kicker">Projecte 01</p>
+            <p class="project-kicker">Proyecto 01</p>
             <article class="project-card">
-              <h3>Sense títol</h3>
+              <h3>Proyecto 01: Sin título</h3>
               <p>
-                Aquest projecte, desenvolupat entre 2024 i 2025, neix d’un procés de creació intuïtiu en què em vaig deixar portar pel meu propi univers visual, sense expectatives ni una intenció inicial completament definida. A través d’aquesta llibertat creativa, les obres van acabar convertint-se, gairebé sense voler, en una representació profunda de mi mateixa i de la meva infància. El projecte aborda temes com la vulnerabilitat, la feminitat, la infantesa i els traumes, emergint de manera natural dins del procés creatiu. Aquesta sèrie va marcar un abans i un després en la meva pràctica artística, en fer-me entendre la creació com un espai on l’inconscient, la memòria i la identitat poden manifestar-se de forma inesperada.
+                Este proyecto, desarrollado entre 2024 y 2025, nace de un proceso de creación intuitivo en el que me dejé llevar por mi propio universo visual, sin expectativas ni una intención inicial completamente definida. A través de esta libertad creativa, las obras acabaron convirtiéndose, casi sin querer, en una representación profunda de mí misma y de mi infancia. El proyecto aborda temas como la vulnerabilidad, la feminidad, la infancia y los traumas, emergiendo de forma natural dentro del proceso creativo. Esta serie marcó un antes y un después en mi práctica artística, al hacerme entender la creación como un espacio donde el inconsciente, la memoria y la identidad pueden manifestarse de forma inesperada.
               </p>
             </article>
           </div>
-          <div class="project-viewer" data-project-key="senseTitol" aria-label="Imatges del projecte Sense títol">
-            <button class="project-button project-button--prev" type="button" aria-label="Veure imatge anterior" data-project-direction="-1">
+          <div class="project-viewer" data-project-key="sinTitulo" aria-label="Imágenes del proyecto Sin título">
+            <button class="project-button project-button--prev" type="button" aria-label="Ver imagen anterior" data-project-direction="-1">
               &lsaquo;
             </button>
             <figure class="project-frame">
-              <img class="project-image" src="assets/project_1/0.webp" alt="Sense títol, imatge 1" loading="lazy" decoding="async">
+              <img class="project-image" src="assets/project_1/0.webp" alt="Proyecto Sin título, imagen 1" loading="lazy" decoding="async">
               <figcaption>
                 <span class="project-counter">1 / 8</span>
               </figcaption>
             </figure>
-            <button class="project-button project-button--next" type="button" aria-label="Veure imatge seguent" data-project-direction="1">
+            <button class="project-button project-button--next" type="button" aria-label="Ver imagen siguiente" data-project-direction="1">
               &rsaquo;
             </button>
           </div>
         </div>
         <div class="project-layout">
           <div class="project-copy">
-            <p class="project-kicker">Projecte 02</p>
+            <p class="project-kicker">Proyecto 02</p>
             <article class="project-card">
-              <h3>Fils</h3>
+              <h3>Proyecto 02: Fils</h3>
               <p>
-                Aquest projecte parteix d’una experiència viscuda durant la meva infància: una aparent connexió sobrenatural amb el meu avi patern, en Lluís, a qui mai havia conegut ni se m’havia mencionat. Amb només dos anys, vaig afirmar parlar amb ell a través d’un telèfon que no havia sonat. Aquest episodi, transmès dins l’àmbit familiar com a enigma inexplicable, esdevé el punt de partida d’una recerca artística centrada en la memòria, la presència de l’absent i els vincles invisibles amb els avantpassats.
+                Este proyecto parte de una experiencia vivida durante mi infancia: una aparente conexión sobrenatural con mi abuelo paterno, Lluís, a quien nunca había conocido y de quien nunca se me había hablado. Con solo dos años, afirmé hablar con él a través de un teléfono que no había sonado. Este episodio, transmitido dentro del ámbito familiar como un enigma inexplicable, se convierte en el punto de partida de una investigación artística centrada en la memoria, la presencia de lo ausente y los vínculos invisibles con los antepasados.
               </p>
               <p>
-                A través d’aquesta vivència, reconstrueixo les diferents etapes de la seva vida, traçant una narrativa íntima que combina documentació, evocació emocional i representació simbòlica. L’obra planteja una reflexió sobre com la identitat es forma també a través de les absències i de les herències immaterials que ens són transmeses.
+                A través de esta vivencia, reconstruyo las diferentes etapas de su vida, trazando una narrativa íntima que combina documentación, evocación emocional y representación simbólica. La obra plantea una reflexión sobre cómo la identidad se forma también a través de las ausencias y de las herencias inmateriales que nos son transmitidas.
               </p>
               <p>
-                Aquest projecte articula una exploració del record i l’herència des d’una perspectiva íntima, posant en diàleg experiència personal, imaginari col·lectiu i processos de construcció de memòria.
+                Este proyecto articula una exploración del recuerdo y la herencia desde una perspectiva íntima, poniendo en diálogo experiencia personal, imaginario colectivo y procesos de construcción de memoria.
               </p>
             </article>
           </div>
-          <div class="project-viewer" data-project-key="fils" aria-label="Imatges del projecte Fils">
-            <button class="project-button project-button--prev" type="button" aria-label="Veure imatge anterior" data-project-direction="-1">
+          <div class="project-viewer" data-project-key="fils" aria-label="Imágenes del proyecto Fils">
+            <button class="project-button project-button--prev" type="button" aria-label="Ver imagen anterior" data-project-direction="-1">
               &lsaquo;
             </button>
             <figure class="project-frame">
-              <img class="project-image" src="assets/project_2/0.webp" alt="Fils, imatge 1" loading="lazy" decoding="async">
+              <img class="project-image" src="assets/project_2/0.webp" alt="Proyecto Fils, imagen 1" loading="lazy" decoding="async">
               <figcaption>
                 <span class="project-counter">1 / 7</span>
               </figcaption>
             </figure>
-            <button class="project-button project-button--next" type="button" aria-label="Veure imatge seguent" data-project-direction="1">
+            <button class="project-button project-button--next" type="button" aria-label="Ver imagen siguiente" data-project-direction="1">
               &rsaquo;
             </button>
           </div>
@@ -1193,6 +1248,16 @@
 
       <section id="sketchbook" aria-labelledby="sketchbook-title">
         <h2 id="sketchbook-title">Sketchbook</h2>
+        <div class="sketchbook-videos">
+          <figure class="sketchbook-video-frame">
+            <video src="assets/sketchbook/sketchbook_tour_optimized.mp4" controls playsinline preload="metadata"></video>
+            <figcaption>Sketchbook tour</figcaption>
+          </figure>
+          <figure class="sketchbook-video-frame">
+            <video src="assets/sketchbook/sketchbook_process_optimized.mp4" controls playsinline preload="metadata"></video>
+            <figcaption>Proceso</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section id="galeria" aria-labelledby="galeria-title">
@@ -1314,7 +1379,7 @@
       const pixelBrushSize = 18;
       const pixelGridSize = 9;
       const projectImageSets = {
-        senseTitol: [
+        sinTitulo: [
           "assets/project_1/0.webp",
           "assets/project_1/1.webp",
           "assets/project_1/2.webp",
@@ -1404,7 +1469,7 @@
         function updateProjectImage(index) {
           imageIndex = (index + images.length) % images.length;
           image.src = images[imageIndex];
-          image.alt = `${image.alt.split(",")[0]}, imatge ${imageIndex + 1}`;
+          image.alt = `${image.alt.split(",")[0]}, imagen ${imageIndex + 1}`;
           counter.textContent = `${imageIndex + 1} / ${images.length}`;
         }
 
