@@ -426,14 +426,14 @@
         flex-direction: column;
         gap: 72px;
         justify-content: center;
-        padding-block: 72px;
+        padding: 72px clamp(18px, 3vw, 56px);
       }
 
       .project-layout {
         display: grid;
-        width: min(100%, 1180px);
-        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
-        gap: clamp(28px, 5vw, 72px);
+        width: 100%;
+        grid-template-columns: minmax(320px, 0.82fr) minmax(420px, 1.18fr);
+        gap: clamp(32px, 4vw, 88px);
         align-items: center;
       }
 
@@ -478,7 +478,7 @@
       .project-card p {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1rem, 1.18vw, 1.18rem);
+        font-size: clamp(1rem, 1.05vw, 1.22rem);
         line-height: 1.55;
       }
 
@@ -497,7 +497,7 @@
       .project-image {
         display: block;
         width: 100%;
-        height: min(64vh, 660px);
+        height: min(72vh, 760px);
         border: 1px solid rgba(21, 18, 15, 0.16);
         background: var(--white);
         box-shadow: 14px 14px 0 rgba(21, 18, 15, 0.14);
@@ -686,7 +686,7 @@
       @media (max-width: 720px) {
         #proyectos {
           gap: 56px;
-          padding-block: 64px;
+          padding: 64px 18px;
         }
 
         .project-layout {
@@ -1179,7 +1179,7 @@
               &lsaquo;
             </button>
             <figure class="project-frame">
-              <img class="project-image" src="assets/project_2/0.png" alt="Fils, imatge 1" loading="lazy" decoding="async">
+              <img class="project-image" src="assets/project_2/0.webp" alt="Fils, imatge 1" loading="lazy" decoding="async">
               <figcaption>
                 <span class="project-counter">1 / 7</span>
               </figcaption>
@@ -1325,13 +1325,13 @@
           "assets/project_1/7.webp",
         ],
         fils: [
-          "assets/project_2/0.png",
-          "assets/project_2/1.png",
-          "assets/project_2/2.png",
-          "assets/project_2/3.png",
-          "assets/project_2/4.png",
-          "assets/project_2/5.png",
-          "assets/project_2/6.png",
+          "assets/project_2/0.webp",
+          "assets/project_2/1.webp",
+          "assets/project_2/2.webp",
+          "assets/project_2/3.webp",
+          "assets/project_2/4.webp",
+          "assets/project_2/5.webp",
+          "assets/project_2/6.webp",
         ],
       };
 
