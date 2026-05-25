@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/pencil_cursor.png" type="image/png">
     <title>Portfolio Hirune</title>
     <style>
       :root {
@@ -17,10 +18,11 @@
         --aqua-deep: #1d7d82;
         --line: rgba(21, 18, 15, 0.22);
         --white: #fffaf2;
-        --sketchbook-width: min(100%, 680px);
-        --sketchbook-max-height: min(49vh, 520px);
+        --home-icon-width: min(100%, 680px);
+        --home-icon-max-height: min(49vh, 472px, 23vw);
         --hiru-width: 98vw;
-        --contact-size: min(20vw, 220px);
+        --contact-width: min(var(--home-icon-width), 34vw, 480px);
+        --contact-height: var(--home-icon-max-height);
       }
 
       * {
@@ -166,6 +168,8 @@
 
       .home-cell--contact {
         grid-area: contact;
+        align-items: flex-start;
+        padding-top: 24px;
       }
 
       .home-tile {
@@ -219,54 +223,78 @@
         height: auto;
       }
 
+      .projects-tile img,
+      .gallery-tile img,
       .sketchbook-tile img {
         display: block;
-        width: var(--sketchbook-width);
-        max-height: var(--sketchbook-max-height);
+        width: auto;
+        height: auto;
+        max-width: var(--home-icon-width);
+        max-height: var(--home-icon-max-height);
         object-fit: contain;
         transition: opacity 180ms ease;
       }
 
-      .sketchbook-hover {
+      .projects-hover,
+      .sketchbook-hover,
+      .gallery-hover {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: var(--sketchbook-width);
-        max-height: var(--sketchbook-max-height);
+        width: auto;
+        height: auto;
+        max-width: var(--home-icon-width);
+        max-height: var(--home-icon-max-height);
         opacity: 0;
         transform: translate(-50%, -50%);
       }
 
-      .sketchbook-tile:hover .sketchbook-default {
+      .projects-tile:hover .projects-default,
+      .projects-tile:focus-visible .projects-default,
+      .sketchbook-tile:hover .sketchbook-default,
+      .sketchbook-tile:focus-visible .sketchbook-default,
+      .gallery-tile:hover .gallery-default,
+      .gallery-tile:focus-visible .gallery-default {
         opacity: 0;
       }
 
-      .sketchbook-tile:hover .sketchbook-hover {
+      .projects-tile:hover .projects-hover,
+      .projects-tile:focus-visible .projects-hover,
+      .sketchbook-tile:hover .sketchbook-hover,
+      .sketchbook-tile:focus-visible .sketchbook-hover,
+      .gallery-tile:hover .gallery-hover,
+      .gallery-tile:focus-visible .gallery-hover {
         opacity: 1;
       }
 
-      .sketchbook-tile:focus-visible {
+      .projects-tile:focus-visible,
+      .sketchbook-tile:focus-visible,
+      .gallery-tile:focus-visible {
         outline: 2px solid var(--ink);
         outline-offset: -8px;
       }
 
       .contact-tile {
-        width: var(--contact-size);
-        height: var(--contact-size);
+        width: var(--contact-width);
+        height: var(--contact-height);
       }
 
       .contact-tile img {
         display: block;
-        width: 100%;
-        height: 100%;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
         transition: opacity 180ms ease;
       }
 
       .contact-hover {
         position: absolute;
-        inset: 0;
+        top: 50%;
+        left: 50%;
         opacity: 0;
+        transform: translate(-50%, -50%);
       }
 
       .contact-tile:hover .contact-default,
@@ -360,9 +388,10 @@
 
       @media (max-width: 720px) {
         :root {
-          --sketchbook-width: min(96vw, 480px);
-          --sketchbook-max-height: 34vh;
-          --contact-size: min(32vw, 132px);
+          --home-icon-width: min(96vw, 480px);
+          --home-icon-max-height: 20vh;
+          --contact-width: min(52vw, 196px);
+          --contact-height: var(--home-icon-max-height);
         }
 
         .site-nav {
@@ -375,9 +404,10 @@
             "proyectos"
             "sketchbook"
             "galeria"
+            "contact"
             "about";
           grid-template-columns: 1fr;
-          grid-template-rows: 21vh 37vh 21vh 21vh;
+          grid-template-rows: repeat(5, 20vh);
         }
 
         .home-cell--empty-a {
@@ -385,13 +415,11 @@
         }
 
         .home-cell--contact {
-          position: absolute;
-          right: 12px;
-          bottom: 6px;
-          z-index: 2;
+          position: static;
           display: flex;
-          width: var(--contact-size);
-          height: var(--contact-size);
+          width: auto;
+          height: auto;
+          padding-top: 0;
         }
 
         .home-placeholder {
@@ -796,7 +824,7 @@
         width: 36px;
         height: 36px;
         image-rendering: pixelated;
-        background: url("assets/pencil.png") center / contain no-repeat;
+        background: url("assets/pencil.webp") center / contain no-repeat;
       }
 
       .draw-toggle:hover,
@@ -1001,31 +1029,49 @@
             <a class="home-tile sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
               <img
                 class="sketchbook-default"
-                src="assets/sketchbook_default.png"
+                src="assets/sketchbook_default.webp"
                 alt=""
               >
               <img
                 class="sketchbook-hover"
-                src="assets/sketchbook_hover.png"
+                src="assets/sketchbook_hover.webp"
                 alt=""
               >
             </a>
           </div>
           <div class="home-cell home-cell--proyectos">
-            <a class="home-tile" href="#proyectos">
-              <span class="home-placeholder">Proyectos</span>
+            <a class="home-tile projects-tile" href="#proyectos" aria-label="Ir a Proyectos">
+              <img
+                class="projects-default"
+                src="assets/iconoproyectos_default.webp"
+                alt=""
+              >
+              <img
+                class="projects-hover"
+                src="assets/iconoproyectos_hover.webp"
+                alt=""
+              >
             </a>
           </div>
           <div class="home-cell home-cell--galeria">
-            <a class="home-tile" href="#galeria">
-              <span class="home-placeholder">Galeria</span>
+            <a class="home-tile gallery-tile" href="#galeria" aria-label="Ir a Galeria">
+              <img
+                class="gallery-default"
+                src="assets/galeria.webp"
+                alt=""
+              >
+              <img
+                class="gallery-hover"
+                src="assets/galeria_hover.webp"
+                alt=""
+              >
             </a>
           </div>
           <div class="home-cell home-cell--about">
             <a class="home-tile hiru-home-tile" href="#about-me" aria-label="Ir a About Me">
               <img
                 class="hiru-home-image"
-                src="assets/hiru_default.png"
+                src="assets/hiru_default.webp"
                 alt=""
               >
             </a>
@@ -1034,12 +1080,12 @@
             <a class="home-tile contact-tile" href="#contacto" aria-label="Ir a Contacto">
               <img
                 class="contact-default"
-                src="assets/contact_default.png"
+                src="assets/contact_default.webp"
                 alt=""
               >
               <img
                 class="contact-hover"
-                src="assets/contact_hover.png"
+                src="assets/contact_hover.webp"
                 alt=""
               >
             </a>
@@ -1054,7 +1100,7 @@
         <div class="about-me-figure" aria-hidden="true">
           <img
             class="hiru-about-image"
-            src="assets/hiru_aboutMe.png"
+            src="assets/hiru_aboutMe.webp"
             alt=""
           >
         </div>
@@ -1076,7 +1122,7 @@
               &lsaquo;
             </button>
             <figure class="project-frame">
-              <img class="project-image" src="assets/project_1/0.jpg" alt="Sense títol, imatge 1" loading="lazy" decoding="async">
+              <img class="project-image" src="assets/project_1/0.webp" alt="Sense títol, imatge 1" loading="lazy" decoding="async">
               <figcaption>
                 <span class="project-counter">1 / 8</span>
               </figcaption>
@@ -1103,37 +1149,37 @@
           </button>
           <div class="gallery-scroll" aria-label="Galeria de ilustraciones">
             <div class="gallery-grid">
-              <img src="assets/carousel/IMG_1726.PNG" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1731.PNG" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1840.PNG" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2201.PNG" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2545.PNG" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2546.PNG" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2547.PNG" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2551.PNG" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2554.PNG" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2555.PNG" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2557.PNG" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2558.PNG" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2560.PNG" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2562.PNG" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2563.PNG" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2564.PNG" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2565.PNG" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2566.PNG" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2567.PNG" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2568.PNG" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2569.PNG" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2570.PNG" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2571.PNG" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2572.PNG" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2573.PNG" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2574.PNG" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2575.PNG" alt="Ilustracion de galeria 27" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2576.PNG" alt="Ilustracion de galeria 28" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2577.PNG" alt="Ilustracion de galeria 29" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2579.PNG" alt="Ilustracion de galeria 30" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2580.PNG" alt="Ilustracion de galeria 31" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1726.webp" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1731.webp" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1840.webp" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2201.webp" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2545.webp" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2546.webp" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2547.webp" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2551.webp" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2554.webp" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2555.webp" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2557.webp" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2558.webp" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2560.webp" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2562.webp" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2563.webp" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2564.webp" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2565.webp" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2566.webp" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2567.webp" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2568.webp" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2569.webp" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2570.webp" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2571.webp" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2572.webp" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2573.webp" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2574.webp" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2575.webp" alt="Ilustracion de galeria 27" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2576.webp" alt="Ilustracion de galeria 28" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2577.webp" alt="Ilustracion de galeria 29" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2579.webp" alt="Ilustracion de galeria 30" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2580.webp" alt="Ilustracion de galeria 31" loading="lazy" decoding="async">
             </div>
           </div>
           <button class="gallery-button gallery-button--next" type="button" aria-label="Ver mas imagenes" data-gallery-direction="1">
@@ -1147,9 +1193,12 @@
           <div class="contact-intro">
             <h2 id="contacto-title">Contacto</h2>
             <p>
-              Para colaboraciones, encargos o proyectos, podéis contactarme por redes sociales.
+              Para colaboraciones, encargos o proyectos, podéis contactarme por redes sociales o correo.
             </p>
             <div class="social-links" aria-label="Redes sociales">
+              <a class="social-link" href="mailto:hirune.estrada@gmail.com">
+                hirune.estrada@gmail.com
+              </a>
               <a class="social-link" href="https://www.instagram.com/hiruuuus/" target="_blank" rel="noreferrer">
                 Instagram @hiruuuus
               </a>
@@ -1206,14 +1255,14 @@
       const pixelBrushSize = 18;
       const pixelGridSize = 9;
       const projectImages = [
-        "assets/project_1/0.jpg",
-        "assets/project_1/1.png",
-        "assets/project_1/2.png",
-        "assets/project_1/3.JPG",
-        "assets/project_1/4.JPG",
-        "assets/project_1/5.JPG",
-        "assets/project_1/6.JPG",
-        "assets/project_1/7.JPG",
+        "assets/project_1/0.webp",
+        "assets/project_1/1.webp",
+        "assets/project_1/2.webp",
+        "assets/project_1/3.webp",
+        "assets/project_1/4.webp",
+        "assets/project_1/5.webp",
+        "assets/project_1/6.webp",
+        "assets/project_1/7.webp",
       ];
       let projectImageIndex = 0;
 
