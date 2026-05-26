@@ -942,6 +942,11 @@
         display: grid;
       }
 
+      .draw-tool.is-menu-closed .draw-menu,
+      body.is-drawing .draw-tool.is-menu-closed .draw-menu {
+        display: none;
+      }
+
       .draw-colors {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -1361,6 +1366,7 @@
       const lightboxClose = imageLightbox.querySelector(".lightbox-close");
       const drawCanvas = document.querySelector(".draw-canvas");
       const drawContext = drawCanvas.getContext("2d");
+      const drawTool = document.querySelector(".draw-tool");
       const drawToggle = document.querySelector(".draw-toggle");
       const drawStop = document.querySelector(".draw-stop");
       const drawClear = document.querySelector(".draw-clear");
@@ -1565,8 +1571,11 @@
         document.body.classList.toggle("is-drawing", isDrawingMode);
         drawToggle.setAttribute("aria-label", isDrawingMode ? "Lapiz activo" : "Activar lapiz");
         if (isDrawingMode) {
+          drawTool.classList.remove("is-menu-closed");
           resizeDrawCanvas();
         } else {
+          drawTool.classList.add("is-menu-closed");
+          drawToggle.blur();
           isDrawingStroke = false;
           lastPoint = null;
         }
@@ -1638,6 +1647,10 @@
           });
           setDrawingMode(true);
         });
+      });
+
+      drawTool.addEventListener("pointerleave", () => {
+        drawTool.classList.remove("is-menu-closed");
       });
 
       drawCanvas.addEventListener("pointerdown", (event) => {
