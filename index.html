@@ -449,26 +449,21 @@
 
       .sketchbook-video-frame {
         display: grid;
-        gap: 10px;
         margin: 0;
+        justify-items: center;
       }
 
       .sketchbook-video-frame video {
         display: block;
-        width: 100%;
+        width: auto;
+        max-width: 100%;
         height: min(72vh, 760px);
+        aspect-ratio: 9 / 16;
         border: 1px solid rgba(21, 18, 15, 0.16);
-        background: var(--ink);
+        background: transparent;
         box-shadow: 12px 12px 0 rgba(21, 18, 15, 0.14);
         object-fit: contain;
-      }
-
-      .sketchbook-video-frame figcaption {
-        color: var(--ink);
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+        object-position: center;
       }
 
       .project-layout {
@@ -912,6 +907,12 @@
         background: url("assets/pencil.webp") center / contain no-repeat;
       }
 
+      body.is-drawing .draw-toggle::before {
+        background:
+          linear-gradient(45deg, transparent 40%, var(--ink) 40%, var(--ink) 60%, transparent 60%) center / 28px 28px no-repeat,
+          linear-gradient(-45deg, transparent 40%, var(--ink) 40%, var(--ink) 60%, transparent 60%) center / 28px 28px no-repeat;
+      }
+
       .draw-toggle:hover,
       .draw-toggle:focus-visible,
       .draw-menu button:hover,
@@ -1234,7 +1235,7 @@
               &lsaquo;
             </button>
             <figure class="project-frame">
-              <img class="project-image" src="assets/project_2/0.webp" alt="Proyecto Fils, imagen 1" loading="lazy" decoding="async">
+              <img class="project-image" src="assets/project_2/a.webp" alt="Proyecto Fils, imagen 1" loading="lazy" decoding="async">
               <figcaption>
                 <span class="project-counter">1 / 7</span>
               </figcaption>
@@ -1250,12 +1251,10 @@
         <h2 id="sketchbook-title">Sketchbook</h2>
         <div class="sketchbook-videos">
           <figure class="sketchbook-video-frame">
-            <video src="assets/sketchbook/sketchbook_tour_optimized.mp4" controls playsinline preload="metadata"></video>
-            <figcaption>Sketchbook tour</figcaption>
+            <video src="assets/sketchbook/sketchbook_tour_optimized.mp4" autoplay muted loop playsinline preload="auto" aria-label="Sketchbook tour"></video>
           </figure>
           <figure class="sketchbook-video-frame">
-            <video src="assets/sketchbook/sketchbook_process_optimized.mp4" controls playsinline preload="metadata"></video>
-            <figcaption>Proceso</figcaption>
+            <video src="assets/sketchbook/sketchbook_process_optimized.mp4" autoplay muted loop playsinline preload="auto" aria-label="Proceso"></video>
           </figure>
         </div>
       </section>
@@ -1271,37 +1270,33 @@
           </button>
           <div class="gallery-scroll" aria-label="Galeria de ilustraciones">
             <div class="gallery-grid">
-              <img src="assets/carousel/IMG_1726.webp" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1731.webp" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1840.webp" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2201.webp" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2545.webp" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2546.webp" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2547.webp" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2551.webp" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2554.webp" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2555.webp" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2557.webp" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2558.webp" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2560.webp" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2562.webp" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2563.webp" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2564.webp" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2565.webp" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2566.webp" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2567.webp" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2568.webp" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2569.webp" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2570.webp" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2571.webp" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2572.webp" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2573.webp" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2574.webp" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2575.webp" alt="Ilustracion de galeria 27" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2576.webp" alt="Ilustracion de galeria 28" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2577.webp" alt="Ilustracion de galeria 29" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2579.webp" alt="Ilustracion de galeria 30" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2580.webp" alt="Ilustracion de galeria 31" loading="lazy" decoding="async">
+              <img src="assets/carousel/edit.webp" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1726.webp" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1731.webp" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1840.webp" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2201.webp" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2545.webp" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2546.webp" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2547.webp" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2551.webp" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2554.webp" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2555.webp" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2557.webp" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2558.webp" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2560.webp" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2562.webp" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2563.webp" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2564.webp" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2565.webp" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2569.webp" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2570.webp" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2571.webp" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2572.webp" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2575.webp" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2576.webp" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2577.webp" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2579.webp" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2580.webp" alt="Ilustracion de galeria 27" loading="lazy" decoding="async">
             </div>
           </div>
           <button class="gallery-button gallery-button--next" type="button" aria-label="Ver mas imagenes" data-gallery-direction="1">
@@ -1390,13 +1385,13 @@
           "assets/project_1/7.webp",
         ],
         fils: [
-          "assets/project_2/0.webp",
-          "assets/project_2/1.webp",
-          "assets/project_2/2.webp",
-          "assets/project_2/3.webp",
-          "assets/project_2/4.webp",
-          "assets/project_2/5.webp",
-          "assets/project_2/6.webp",
+          "assets/project_2/a.webp",
+          "assets/project_2/b.webp",
+          "assets/project_2/c.webp",
+          "assets/project_2/d.webp",
+          "assets/project_2/e.webp",
+          "assets/project_2/f.webp",
+          "assets/project_2/g.webp",
         ],
       };
 
