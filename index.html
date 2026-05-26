@@ -9,9 +9,10 @@
       :root {
         color-scheme: light;
         font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-        background: #b7c4e4;
+        background: #f6f2ea;
         color: #15120f;
-        --paper: #b7c4e4;
+        --paper: #f6f2ea;
+        --video-blue: #b7c4e4;
         --ink: #15120f;
         --muted-ink: rgba(21, 18, 15, 0.68);
         --aqua: #c8e9e5;
@@ -116,7 +117,7 @@
       section:nth-child(even) {
         background:
           radial-gradient(circle at 1px 1px, rgba(21, 18, 15, 0.1) 1px, transparent 1.7px) 0 0 / 12px 12px,
-          var(--paper);
+          #fffaf2;
       }
 
       #home {
@@ -432,6 +433,9 @@
         flex-direction: column;
         justify-content: center;
         gap: 28px;
+        background:
+          radial-gradient(circle at 1px 1px, rgba(21, 18, 15, 0.12) 1px, transparent 1.7px) 0 0 / 11px 11px,
+          var(--video-blue);
         padding: 72px clamp(18px, 4vw, 64px);
       }
 
