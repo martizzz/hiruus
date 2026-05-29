@@ -18,8 +18,9 @@
         --aqua-deep: #1d7d82;
         --line: rgba(21, 18, 15, 0.22);
         --white: #fffaf2;
-        --home-icon-width: min(100%, 680px);
-        --home-icon-max-height: min(49vh, 472px, 23vw);
+        --home-icon-width: min(100%, 360px);
+        --home-icon-max-height: min(52vh, 360px, 24vw);
+        --about-icon-max-height: calc(var(--home-icon-max-height) * 0.72);
         --hiru-width: 98vw;
         --contact-width: min(var(--home-icon-width), 34vw, 480px);
         --contact-height: var(--home-icon-max-height);
@@ -111,6 +112,7 @@
         align-items: center;
         justify-content: center;
         padding: 48px 24px;
+        scroll-margin-top: 112px;
       }
 
       section:nth-child(even) {
@@ -128,11 +130,9 @@
 
       .home-grid {
         display: grid;
-        grid-template-areas:
-          "sketchbook proyectos galeria"
-          "empty-a about empty-b";
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-template-rows: repeat(2, minmax(0, 1fr));
+        grid-template-areas: "about proyectos sketchbook galeria";
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: 100vh;
         min-height: 100vh;
         width: 100%;
       }
@@ -162,7 +162,7 @@
       }
 
       .home-cell--empty-a {
-        grid-area: empty-a;
+        display: none;
       }
 
       .home-tile {
@@ -188,7 +188,6 @@
         position: relative;
         display: flex;
         width: 100%;
-        height: var(--home-icon-max-height);
         align-items: center;
         justify-content: center;
       }
@@ -236,9 +235,12 @@
 
       .about-home-image {
         display: block;
-        width: min(84%, 360px);
+        width: auto;
         height: auto;
+        max-width: var(--home-icon-width);
+        max-height: var(--about-icon-max-height);
         object-fit: contain;
+        transition: opacity 180ms ease;
       }
 
       .projects-tile img,
@@ -255,7 +257,8 @@
 
       .projects-hover,
       .sketchbook-hover,
-      .gallery-hover {
+      .gallery-hover,
+      .about-hover {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -267,12 +270,19 @@
         transform: translate(-50%, -50%);
       }
 
+      .about-hover {
+        max-width: var(--home-icon-width);
+        max-height: var(--about-icon-max-height);
+      }
+
       .projects-tile:hover .projects-default,
       .projects-tile:focus-visible .projects-default,
       .sketchbook-tile:hover .sketchbook-default,
       .sketchbook-tile:focus-visible .sketchbook-default,
       .gallery-tile:hover .gallery-default,
-      .gallery-tile:focus-visible .gallery-default {
+      .gallery-tile:focus-visible .gallery-default,
+      .about-tile:hover .about-default,
+      .about-tile:focus-visible .about-default {
         opacity: 0;
       }
 
@@ -281,13 +291,16 @@
       .sketchbook-tile:hover .sketchbook-hover,
       .sketchbook-tile:focus-visible .sketchbook-hover,
       .gallery-tile:hover .gallery-hover,
-      .gallery-tile:focus-visible .gallery-hover {
+      .gallery-tile:focus-visible .gallery-hover,
+      .about-tile:hover .about-hover,
+      .about-tile:focus-visible .about-hover {
         opacity: 1;
       }
 
       .projects-tile:focus-visible,
       .sketchbook-tile:focus-visible,
-      .gallery-tile:focus-visible {
+      .gallery-tile:focus-visible,
+      .about-tile:focus-visible {
         outline: 2px solid var(--ink);
         outline-offset: -8px;
       }
@@ -368,8 +381,9 @@
 
       @media (max-width: 720px) {
         :root {
-          --home-icon-width: min(96vw, 480px);
+          --home-icon-width: min(96vw, 300px);
           --home-icon-max-height: 20vh;
+          --about-icon-max-height: calc(var(--home-icon-max-height) * 0.9);
           --contact-width: min(52vw, 196px);
           --contact-height: var(--home-icon-max-height);
         }
@@ -381,8 +395,8 @@
 
         .home-grid {
           grid-template-areas:
-            "proyectos sketchbook"
-            "galeria about";
+            "about proyectos"
+            "sketchbook galeria";
           grid-template-columns: repeat(2, minmax(0, 1fr));
           grid-template-rows: repeat(2, 50vh);
         }
@@ -397,10 +411,6 @@
           font-size: clamp(1.3rem, 8vw, 2.45rem);
         }
 
-        .about-home-image {
-          width: min(82%, 240px);
-        }
-
         .scroll-cue {
           bottom: 18px;
           left: 18px;
@@ -409,21 +419,45 @@
 
       #about-me {
         align-items: center;
+        flex-direction: column;
+        gap: 28px;
         justify-content: center;
         padding: 72px clamp(20px, 8vw, 120px);
+      }
+
+      #about-me h2 {
+        font-size: clamp(2.6rem, 6vw, 5rem);
       }
 
       .about-copy {
         display: grid;
         width: min(100%, 980px);
-        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1.08rem, 1.55vw, 1.42rem);
-        line-height: 1.62;
+        font-size: clamp(0.92rem, 1.08vw, 1.08rem);
+        line-height: 1.48;
       }
 
       .about-copy p {
         margin: 0;
+      }
+
+      @media (max-width: 720px) {
+        #about-me {
+          gap: 22px;
+        }
+
+        #about-me h2 {
+          font-size: clamp(2.2rem, 12vw, 3rem);
+        }
+
+        .about-copy {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          font-size: 0.86rem;
+          line-height: 1.38;
+        }
       }
 
       #proyectos {
@@ -1115,7 +1149,7 @@
       <a href="#about-me">About Me</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#sketchbook">Sketchbook</a>
-      <a href="#galeria">Galeria</a>
+      <a href="#galeria">Galería</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
@@ -1123,21 +1157,21 @@
       <section id="home" aria-labelledby="home-title">
         <h1 id="home-title" class="visually-hidden">Home</h1>
         <div class="home-grid">
-          <div class="home-cell home-cell--sketchbook">
-            <a class="home-tile sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
+          <div class="home-cell home-cell--about">
+            <a class="home-tile about-tile" href="#about-me" aria-label="Ir a About Me">
               <span class="home-icon-stack" aria-hidden="true">
                 <img
-                  class="sketchbook-default"
-                  src="assets/sketchbook_default.webp"
+                  class="about-home-image about-default"
+                  src="assets/about_me_default_trimmed.png"
                   alt=""
                 >
                 <img
-                  class="sketchbook-hover"
-                  src="assets/sketchbook_hover.webp"
+                  class="about-home-image about-hover"
+                  src="assets/about_me_hover_trimmed.png"
                   alt=""
                 >
               </span>
-              <span class="home-icon-label">Sketchbook</span>
+              <span class="home-icon-label">About Me</span>
             </a>
           </div>
           <div class="home-cell home-cell--proyectos">
@@ -1157,8 +1191,25 @@
               <span class="home-icon-label">Proyectos</span>
             </a>
           </div>
+          <div class="home-cell home-cell--sketchbook">
+            <a class="home-tile sketchbook-tile" href="#sketchbook" aria-label="Ir a Sketchbook">
+              <span class="home-icon-stack" aria-hidden="true">
+                <img
+                  class="sketchbook-default"
+                  src="assets/sketchbook_default.webp"
+                  alt=""
+                >
+                <img
+                  class="sketchbook-hover"
+                  src="assets/sketchbook_hover.webp"
+                  alt=""
+                >
+              </span>
+              <span class="home-icon-label">Sketchbook</span>
+            </a>
+          </div>
           <div class="home-cell home-cell--galeria">
-            <a class="home-tile gallery-tile" href="#galeria" aria-label="Ir a Galeria">
+            <a class="home-tile gallery-tile" href="#galeria" aria-label="Ir a Galería">
               <span class="home-icon-stack" aria-hidden="true">
                 <img
                   class="gallery-default"
@@ -1171,16 +1222,7 @@
                   alt=""
                 >
               </span>
-              <span class="home-icon-label">Galeria</span>
-            </a>
-          </div>
-          <div class="home-cell home-cell--about">
-            <a class="home-tile about-tile" href="#about-me" aria-label="Ir a About Me">
-              <img
-                class="about-home-image"
-                src="assets/about_me_icon.webp"
-                alt=""
-              >
+              <span class="home-icon-label">Galería</span>
             </a>
           </div>
           <div class="home-cell home-cell--empty-a"></div>
@@ -1189,7 +1231,7 @@
       </section>
 
       <section id="about-me" aria-labelledby="about-me-title">
-        <h2 id="about-me-title" class="visually-hidden">About Me</h2>
+        <h2 id="about-me-title">About Me</h2>
         <div class="about-copy">
           <p>
             La ilustración es una parte fundamental de mi práctica creativa y un lenguaje desde el cual construyo gran parte de mi universo visual. Aunque mi formación académica proviene de las Bellas Artes, mi aproximación a la ilustración ha sido principalmente autodidacta, un proceso que me ha permitido desarrollar una voz propia desde la intuición, la experimentación y la práctica constante. Es un ámbito en el que tengo un interés especial por seguir formándome, especialmente en el desarrollo de proyectos, el trabajo colaborativo y la posibilidad de aplicar mi lenguaje visual en contextos profesionales y compartidos.
@@ -1273,45 +1315,45 @@
       </section>
 
       <section id="galeria" aria-labelledby="galeria-title">
-        <h2 id="galeria-title">Galeria</h2>
+        <h2 id="galeria-title">Galería</h2>
         <p class="gallery-copy">
           En esta galería encontraréis una selección de dibujos e ilustraciones realizadas a lo largo de los años. Son piezas sueltas, fuera de proyectos concretos, que forman parte de mi proceso creativo y donde se muestra mi estilo e identidad artística.
         </p>
         <div class="gallery-carousel">
-          <button class="gallery-button gallery-button--prev" type="button" aria-label="Ver imagenes anteriores" data-gallery-direction="-1">
+          <button class="gallery-button gallery-button--prev" type="button" aria-label="Ver imágenes anteriores" data-gallery-direction="-1">
             &lsaquo;
           </button>
-          <div class="gallery-scroll" aria-label="Galeria de ilustraciones">
+          <div class="gallery-scroll" aria-label="Galería de ilustraciones">
             <div class="gallery-grid">
-              <img src="assets/carousel/edit.webp" alt="Ilustracion de galeria 1" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1726.webp" alt="Ilustracion de galeria 2" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1731.webp" alt="Ilustracion de galeria 3" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_1840.webp" alt="Ilustracion de galeria 4" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2201.webp" alt="Ilustracion de galeria 5" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2545.webp" alt="Ilustracion de galeria 6" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2546.webp" alt="Ilustracion de galeria 7" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2547.webp" alt="Ilustracion de galeria 8" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2551.webp" alt="Ilustracion de galeria 9" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2554.webp" alt="Ilustracion de galeria 10" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2555.webp" alt="Ilustracion de galeria 11" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2557.webp" alt="Ilustracion de galeria 12" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2558.webp" alt="Ilustracion de galeria 13" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2560.webp" alt="Ilustracion de galeria 14" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2562.webp" alt="Ilustracion de galeria 15" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2563.webp" alt="Ilustracion de galeria 16" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2564.webp" alt="Ilustracion de galeria 17" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2565.webp" alt="Ilustracion de galeria 18" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2569.webp" alt="Ilustracion de galeria 19" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2570.webp" alt="Ilustracion de galeria 20" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2571.webp" alt="Ilustracion de galeria 21" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2572.webp" alt="Ilustracion de galeria 22" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2575.webp" alt="Ilustracion de galeria 23" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2577.webp" alt="Ilustracion de galeria 24" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2579.webp" alt="Ilustracion de galeria 25" loading="lazy" decoding="async">
-              <img src="assets/carousel/IMG_2580.webp" alt="Ilustracion de galeria 26" loading="lazy" decoding="async">
+              <img src="assets/carousel/edit.webp" alt="Ilustración de galería 1" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1726.webp" alt="Ilustración de galería 2" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1731.webp" alt="Ilustración de galería 3" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_1840.webp" alt="Ilustración de galería 4" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2201.webp" alt="Ilustración de galería 5" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2545.webp" alt="Ilustración de galería 6" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2546.webp" alt="Ilustración de galería 7" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2547.webp" alt="Ilustración de galería 8" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2551.webp" alt="Ilustración de galería 9" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2554.webp" alt="Ilustración de galería 10" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2555.webp" alt="Ilustración de galería 11" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2557.webp" alt="Ilustración de galería 12" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2558.webp" alt="Ilustración de galería 13" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2560.webp" alt="Ilustración de galería 14" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2562.webp" alt="Ilustración de galería 15" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2563.webp" alt="Ilustración de galería 16" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2564.webp" alt="Ilustración de galería 17" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2565.webp" alt="Ilustración de galería 18" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2569.webp" alt="Ilustración de galería 19" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2570.webp" alt="Ilustración de galería 20" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2571.webp" alt="Ilustración de galería 21" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2572.webp" alt="Ilustración de galería 22" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2575.webp" alt="Ilustración de galería 23" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2577.webp" alt="Ilustración de galería 24" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2579.webp" alt="Ilustración de galería 25" loading="lazy" decoding="async">
+              <img src="assets/carousel/IMG_2580.webp" alt="Ilustración de galería 26" loading="lazy" decoding="async">
             </div>
           </div>
-          <button class="gallery-button gallery-button--next" type="button" aria-label="Ver mas imagenes" data-gallery-direction="1">
+          <button class="gallery-button gallery-button--next" type="button" aria-label="Ver más imágenes" data-gallery-direction="1">
             &rsaquo;
           </button>
         </div>
