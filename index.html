@@ -175,6 +175,7 @@
         color: inherit;
         cursor: pointer;
         text-decoration: none;
+        transform-origin: 50% 58%;
       }
 
       .projects-tile,
@@ -182,6 +183,41 @@
       .sketchbook-tile {
         flex-direction: column;
         gap: 10px;
+      }
+
+      .home-tile {
+        animation: home-tile-wobble 7.5s ease-in-out infinite;
+      }
+
+      .projects-tile {
+        animation-delay: -1.4s;
+      }
+
+      .sketchbook-tile {
+        animation-delay: -3.2s;
+      }
+
+      .gallery-tile {
+        animation-delay: -5s;
+      }
+
+      @keyframes home-tile-wobble {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+
+        25% {
+          transform: translateY(-5px) rotate(-1.3deg);
+        }
+
+        50% {
+          transform: translateY(3px) rotate(1.1deg);
+        }
+
+        75% {
+          transform: translateY(-2px) rotate(-0.6deg);
+        }
       }
 
       .home-icon-stack {
@@ -490,21 +526,29 @@
 
       .sketchbook-video-frame {
         display: grid;
+        width: min(100%, 430px);
+        height: min(72vh, 760px);
+        aspect-ratio: 9 / 16;
         margin: 0;
         justify-items: center;
+        overflow: hidden;
+        border: 1px solid rgba(21, 18, 15, 0.16);
+        background: var(--white);
+        box-shadow: 12px 12px 0 rgba(21, 18, 15, 0.14);
       }
 
       .sketchbook-video-frame video {
         display: block;
-        width: auto;
-        max-width: 100%;
-        height: min(72vh, 760px);
-        aspect-ratio: 9 / 16;
-        border: 1px solid rgba(21, 18, 15, 0.16);
-        background: transparent;
-        box-shadow: 12px 12px 0 rgba(21, 18, 15, 0.14);
-        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         object-position: center;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .home-tile {
+          animation: none;
+        }
       }
 
       .project-layout {
@@ -807,7 +851,7 @@
           gap: 32px;
         }
 
-        .sketchbook-video-frame video {
+        .sketchbook-video-frame {
           height: min(72vh, 620px);
         }
 
